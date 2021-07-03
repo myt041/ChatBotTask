@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    android:background="@color/teal_green_dark">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:id="@+id/you_user_name"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:maxLines="1"
+                            android:text="ChatBot"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_14ssp" />
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/warm_grey" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/bg_gray">
+
+                    <com.stfalcon.chatkit.messages.MessagesList
+                        android:id="@+id/messagesList"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_above="@+id/ll_input"
+                        app:dateHeaderTextColor="@color/black"
+                        app:dateHeaderTextSize="@dimen/_9ssp"
+                        app:dateHeaderTextStyle="bold"
+                        app:incomingAvatarHeight="@dimen/_40sdp"
+                        app:incomingAvatarWidth="@dimen/_40sdp"
+                        app:incomingBubbleDrawable="@drawable/in_coming_bg"
+                        app:incomingBubblePaddingBottom="@dimen/_10sdp"
+                        app:incomingBubblePaddingLeft="@dimen/_15sdp"
+                        app:incomingBubblePaddingRight="@dimen/_15sdp"
+                        app:incomingBubblePaddingTop="@dimen/_10sdp"
+                        app:incomingDefaultImageOverlayPressedColor="@color/white"
+                        app:incomingImageTimeTextColor="@color/white"
+                        app:incomingImageTimeTextSize="@dimen/_8ssp"
+                        app:incomingTextColor="@color/black"
+                        app:incomingTextSize="@dimen/_12ssp"
+                        app:incomingTimeTextColor="@color/dark_gray"
+                        app:incomingTimeTextSize="@dimen/_8ssp"
+                        app:outcomingBubbleDrawable="@drawable/out_going_bg"
+                        app:outcomingBubblePaddingBottom="@dimen/_10sdp"
+                        app:outcomingBubblePaddingLeft="@dimen/_15sdp"
+                        app:outcomingBubblePaddingRight="@dimen/_15sdp"
+                        app:outcomingBubblePaddingTop="@dimen/_10sdp"
+                        app:outcomingDefaultImageOverlaySelectedColor="@color/white"
+                        app:outcomingImageTimeTextColor="@color/white"
+                        app:outcomingImageTimeTextSize="@dimen/_8ssp"
+                        app:outcomingTextColor="@color/black"
+                        app:outcomingTextSize="@dimen/_12ssp"
+                        app:outcomingTimeTextColor="@color/dark_gray"
+                        app:outcomingTimeTextSize="@dimen/_8ssp" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:orientation="horizontal">
+
+
+                        <com.stfalcon.chatkit.messages.MessageInput
+                            android:id="@+id/input"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_5sdp"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_input_message"
+                            android:gravity="center"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:paddingEnd="@dimen/_5sdp"
+                            app:attachmentButtonBackground="@color/transparent"
+                            app:attachmentButtonDefaultBgColor="@color/black"
+                            app:attachmentButtonIcon="@drawable/ic_camera"
+                            app:attachmentButtonMargin="@dimen/_5sdp"
+                            app:attachmentButtonWidth="@dimen/_55sdp"
+                            app:inputButtonBackground="@color/transparent"
+                            app:inputButtonIcon="@drawable/ic_comment_send"
+                            app:inputButtonMargin="@dimen/_5sdp"
+                            app:inputHint="Type a message"
+                            app:inputHintColor="@color/gray"
+                            app:inputTextColor="@color/black"
+                            app:inputTextSize="@dimen/_12ssp"
+                            app:showAttachmentButton="false" />
+
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</layout>
