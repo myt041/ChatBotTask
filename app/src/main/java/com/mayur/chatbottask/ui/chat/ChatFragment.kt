@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.mayur.chatbottask.R
+import com.mayur.chatbottask.data.cache.MessageCache
 import com.mayur.chatbottask.databinding.ActivityChatBinding
 import com.mayur.chatbottask.util.StateListener
 import com.stfalcon.chatkit.commons.ImageLoader
@@ -64,9 +65,53 @@ class ChatFragment : Fragment(), MessageInput.InputListener,
                     timeStamp.toString()
                 )
                 messagesAdapter?.addToStart(message, true)
+
+                // for bot sender is user and receiverid == bot id
+                viewModel.insertBotMessage(
+                    MessageCache(
+                        0,
+                        meUser.id,
+                        meUser.id,
+                        youUser.id,
+                        timeStamp,
+                        meUser.name,
+                        botMsg,
+                        false
+                    )
+                )
+
             }
         })
 
+        viewModel.previousMessages.observe(viewLifecycleOwner, {
+            if (it.size > 0) {
+                var chatMessagesTmp = ArrayList<ChatMessage>()
+
+                it.forEach { data ->
+
+                    var temp: User? = null
+                    if (data.sender_id == youUser.id) {
+                        temp = meUser
+                    } else {
+                        temp = youUser
+
+                    }
+
+                    chatMessagesTmp.add(
+                        ChatMessage(
+                            temp,
+                            data.contents,
+                            data.timestamp.toString(),
+                            0,
+                            data.messageId.toString()
+                        )
+                    )
+                }
+
+                messagesAdapter?.addToEnd(chatMessagesTmp, false)
+
+            }
+        })
 
         meUser = User(
             args.userId,
@@ -87,8 +132,12 @@ class ChatFragment : Fragment(), MessageInput.InputListener,
             false
         }
 
+
+        viewModel.fetchPreviousMessages(meUser.id)
+
         return binding.root
     }
+
 
     private fun sendMessage(textData: String) {
         val text = textData.trim()
@@ -109,7 +158,21 @@ class ChatFragment : Fragment(), MessageInput.InputListener,
         )
         messagesAdapter?.addToStart(message, true)
 
-        viewModel.getBotReply(textData, meUser.id)
+        // for me sender is bot so senderid == botid
+        viewModel.insertUserMessage(
+            MessageCache(
+                0,
+                meUser.id,
+                youUser.id,
+                meUser.id,
+                timeStamp,
+                meUser.name,
+                textData,
+                false
+            )
+        )
+
+//        viewModel.getBotReply(textData, meUser.id)
     }
 
     override fun onSubmit(input: CharSequence?): Boolean {

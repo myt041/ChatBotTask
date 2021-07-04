@@ -1,5 +1,6 @@
 package com.mayur.chatbottask.di
 
+import com.mayur.chatbottask.data.cache.AppDatabase
 import com.mayur.chatbottask.data.network.ApiServices
 import com.mayur.chatbottask.data.repositories.ChatRepository
 import dagger.Module
@@ -13,9 +14,10 @@ object RepositoryModule {
 
     @Provides
     fun providesChatRepository(
+        appDatabase: AppDatabase,
         authApiService: ApiServices
     ): ChatRepository {
-        return ChatRepository(authApiService)
+        return ChatRepository(appDatabase, authApiService)
     }
 
 }

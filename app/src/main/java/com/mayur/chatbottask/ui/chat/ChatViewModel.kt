@@ -5,6 +5,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mayur.chatbottask.data.cache.MessageCache
 import com.mayur.chatbottask.data.repositories.ChatRepository
 import com.mayur.chatbottask.util.ApiException
 import com.mayur.chatbottask.util.StateListener
@@ -18,6 +19,7 @@ class ChatViewModel @Inject constructor(private val repository: ChatRepository) 
     ViewModel(), Observable {
 
     val botResponse = MutableLiveData<chatBotResponse>()
+    val previousMessages = MutableLiveData<ArrayList<MessageCache>>()
 
 
     var stateListener: StateListener? = null
@@ -44,6 +46,28 @@ class ChatViewModel @Inject constructor(private val repository: ChatRepository) 
                 return@launch
             }
 
+        }
+    }
+
+    fun insertUserMessage(message: MessageCache) {
+        viewModelScope.launch {
+            repository.insertMessage(message)
+
+            getBotReply(message.contents, message.userId)
+        }
+    }
+
+    fun insertBotMessage(message: MessageCache) {
+        viewModelScope.launch {
+            repository.insertMessage(message)
+
+        }
+    }
+
+    fun fetchPreviousMessages(userId: String) {
+        viewModelScope.launch {
+           val messages = repository.fetchPreviousMessage(userId)
+            previousMessages.postValue(ArrayList(messages))
         }
     }
 

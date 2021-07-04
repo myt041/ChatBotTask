@@ -1,11 +1,14 @@
 package com.mayur.chatbottask.data.repositories
 
+import com.mayur.chatbottask.data.cache.AppDatabase
+import com.mayur.chatbottask.data.cache.MessageCache
 import com.mayur.chatbottask.data.network.ApiServices
 import com.mayur.chatbottask.ui.chat.User
 import com.mayur.chatbottask.ui.chat.chatBotResponse
 import com.mayur.chatbottask.util.SafeApiRequest
 
 class ChatRepository(
+    private val appDatabase: AppDatabase,
     private val apiService: ApiServices
 ) : SafeApiRequest() {
 
@@ -32,5 +35,13 @@ class ChatRepository(
         userList.add(User("555", "User5", ""))
 
         return userList
+    }
+
+    suspend fun insertMessage(message: MessageCache) {
+        appDatabase.messageDao().saveMessage(message)
+    }
+
+    suspend fun fetchPreviousMessage(userId: String): List<MessageCache> {
+        return appDatabase.messageDao().getPreviousMessages(userId)
     }
 }
