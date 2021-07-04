@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/home_container">
+
+    <fragment
+        android:id="@+id/home_container"
+        android:name="com.mayur.chatbottask.ui.chat.HomeContainerFragment"
+        android:label="fragment_home_container"
+        tools:layout="@layout/fragment_home_container">
+
+        <action
+            android:id="@+id/home_to_chat"
+            app:destination="@id/chat_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/chat_fragment"
+        android:name="com.mayur.chatbottask.ui.chat.ChatFragment"
+        android:label="fragment_chat"
+        tools:layout="@layout/activity_chat">
+
+        <argument
+            android:name="user_id"
+            android:defaultValue="null"
+            app:argType="string" />
+        <argument
+            android:name="user_name"
+            android:defaultValue="null"
+            app:argType="string" />
+
+
+    </fragment>
+
+</navigation>

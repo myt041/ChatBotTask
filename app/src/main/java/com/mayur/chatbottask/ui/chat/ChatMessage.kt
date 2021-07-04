@@ -10,7 +10,7 @@ class ChatMessage @JvmOverloads constructor(
     private var messageDate: String,
     private var messageType: Int,
     private var objectId: String
-) : IMessage, MessageContentType.Image, MessageContentType /*and this one is for custom content type (in this case - voice message)*/ {
+) : IMessage, MessageContentType.Image, MessageContentType {
 
     var voice: Voice? = null
     val status: String

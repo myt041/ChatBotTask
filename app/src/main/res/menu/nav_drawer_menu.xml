@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:id="@+id/group_1">
+        <item
+            android:id="@+id/user_1"
+            android:title="Mayur" />
+    </group>
+
+    <group android:id="@+id/group_2">
+        <item
+            android:id="@+id/user_2"
+            android:title="User 2" />
+    </group>
+
+    <group android:id="@+id/group_3">
+
+        <item
+            android:id="@+id/user_3"
+            android:title="User 3" />
+
+    </group>
+
+
+    <group android:id="@+id/group_4">
+
+        <item
+            android:id="@+id/user_4"
+            android:title="User 4" />
+
+    </group>
+
+    <group android:id="@+id/group_5">
+        <item
+            android:id="@+id/user_5"
+            android:title="User 5" />
+    </group>
+
+
+</menu>
+

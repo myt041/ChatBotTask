@@ -4,6 +4,8 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-android-extensions'
     id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
+
 
 }
 
@@ -80,7 +82,9 @@ dependencies {
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_viewmodel_version"
     kapt "androidx.hilt:hilt-compiler:$hilt_viewmodel_version"
 
-    //Kotlin coroutine
-//    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
-//    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
+    //Nav Libs
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+    implementation "androidx.fragment:fragment-ktx:1.4.0-alpha04"
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 }

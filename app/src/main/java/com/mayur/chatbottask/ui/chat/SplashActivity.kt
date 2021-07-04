@@ -10,7 +10,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        startActivity(Intent(this, ChatActivity::class.java))
+        startActivity(Intent(this, HomeActivity::class.java))
 
     }
 }

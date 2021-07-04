@@ -1,11 +1,15 @@
 package com.mayur.chatbottask.ui.chat
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputFilter
+import android.view.LayoutInflater
 import android.view.View
-import androidx.activity.viewModels
+import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.mayur.chatbottask.R
 import com.mayur.chatbottask.databinding.ActivityChatBinding
 import com.mayur.chatbottask.util.StateListener
@@ -18,10 +22,10 @@ import com.stfalcon.chatkit.utils.DateFormatter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ChatActivity : AppCompatActivity(), MessageInput.InputListener,
+class ChatFragment : Fragment(), MessageInput.InputListener,
     MessagesListAdapter.OnLoadMoreListener, StateListener {
-
     val senderId = "45544"
+
     private lateinit var binding: ActivityChatBinding
 
     private val viewModel: ChatViewModel by viewModels()
@@ -30,12 +34,20 @@ class ChatActivity : AppCompatActivity(), MessageInput.InputListener,
     lateinit var meUser: User
     lateinit var youUser: User
 
+    private val args: ChatFragmentArgs by navArgs()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_chat)
 
-        viewModel.botResponse.observe(this, {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.activity_chat, container, false)
+
+        binding.imgMenu.setOnClickListener {
+            findNavController().popBackStack()
+        }
+        viewModel.botResponse.observe(viewLifecycleOwner, {
             if (it.success == 1) {
                 val botMsg = it.message.message
 
@@ -55,9 +67,10 @@ class ChatActivity : AppCompatActivity(), MessageInput.InputListener,
             }
         })
 
+
         meUser = User(
-            senderId,
-            "Mayur",
+            args.userId,
+            args.userName,
             ""
         )
 
@@ -74,8 +87,8 @@ class ChatActivity : AppCompatActivity(), MessageInput.InputListener,
             false
         }
 
+        return binding.root
     }
-
 
     private fun sendMessage(textData: String) {
         val text = textData.trim()
@@ -96,7 +109,7 @@ class ChatActivity : AppCompatActivity(), MessageInput.InputListener,
         )
         messagesAdapter?.addToStart(message, true)
 
-        viewModel.getBotReply(textData, senderId)
+        viewModel.getBotReply(textData, meUser.id)
     }
 
     override fun onSubmit(input: CharSequence?): Boolean {
@@ -142,7 +155,7 @@ class ChatActivity : AppCompatActivity(), MessageInput.InputListener,
 
 
         messagesAdapter =
-            MessagesListAdapter(senderId, holdersConfig, imageLoader)
+            MessagesListAdapter(meUser.id, holdersConfig, imageLoader)
         messagesAdapter?.setLoadMoreListener(this)
         messagesAdapter?.setDateHeadersFormatter { date ->
             if (DateFormatter.isToday(date)) {
@@ -180,5 +193,4 @@ class ChatActivity : AppCompatActivity(), MessageInput.InputListener,
 
     override fun onFailure(message: String) {
     }
-
 }
