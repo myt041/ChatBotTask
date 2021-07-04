@@ -13,7 +13,12 @@ import androidx.navigation.fragment.navArgs
 import com.mayur.chatbottask.R
 import com.mayur.chatbottask.data.cache.MessageCache
 import com.mayur.chatbottask.databinding.ActivityChatBinding
+import com.mayur.chatbottask.ui.model.ChatMessage
+import com.mayur.chatbottask.ui.model.User
+import com.mayur.chatbottask.util.Const
 import com.mayur.chatbottask.util.StateListener
+import com.rommansabbir.networkx.isInternetConnected
+import com.rommansabbir.networkx.isInternetConnectedLiveData
 import com.stfalcon.chatkit.commons.ImageLoader
 import com.stfalcon.chatkit.commons.models.IMessage
 import com.stfalcon.chatkit.messages.MessageHolders
@@ -25,17 +30,22 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ChatFragment : Fragment(), MessageInput.InputListener,
     MessagesListAdapter.OnLoadMoreListener, StateListener {
-    val senderId = "45544"
 
     private lateinit var binding: ActivityChatBinding
 
     private val viewModel: ChatViewModel by viewModels()
     var messagesAdapter: MessagesListAdapter<ChatMessage>? = null
     private var imageLoader: ImageLoader? = null
-    lateinit var meUser: User
+
+    companion object {
+        var meUser: User = User("0", "", "")
+    }
+
     lateinit var youUser: User
 
     private val args: ChatFragmentArgs by navArgs()
+
+    private var lastStatus = false
 
 
     override fun onCreateView(
@@ -45,11 +55,25 @@ class ChatFragment : Fragment(), MessageInput.InputListener,
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.activity_chat, container, false)
 
+
+
+        lastStatus = isInternetConnected()
+        isInternetConnectedLiveData().observe(viewLifecycleOwner,{
+            if(it != lastStatus){
+                lastStatus = it
+                if(lastStatus){
+
+                    viewModel.performNetworkBackOperation()
+
+                }
+            }
+        })
+
         binding.imgMenu.setOnClickListener {
             findNavController().popBackStack()
         }
         viewModel.botResponse.observe(viewLifecycleOwner, {
-            if (it.success == 1) {
+            if (it.success == Const.SUCCESS_CODE) {
                 val botMsg = it.message.message
 
                 if (botMsg.isBlank()) {
@@ -64,6 +88,7 @@ class ChatFragment : Fragment(), MessageInput.InputListener,
                     0,
                     timeStamp.toString()
                 )
+
                 messagesAdapter?.addToStart(message, true)
 
                 // for bot sender is user and receiverid == bot id
@@ -76,7 +101,7 @@ class ChatFragment : Fragment(), MessageInput.InputListener,
                         timeStamp,
                         meUser.name,
                         botMsg,
-                        false
+                        true
                     )
                 )
 
@@ -113,11 +138,13 @@ class ChatFragment : Fragment(), MessageInput.InputListener,
             }
         })
 
+
         meUser = User(
             args.userId,
             args.userName,
             ""
         )
+
 
         youUser = User(
             "63906",

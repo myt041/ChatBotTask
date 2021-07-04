@@ -8,6 +8,8 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.mayur.chatbottask.R
 import com.mayur.chatbottask.databinding.ActivityChatBinding
+import com.mayur.chatbottask.ui.model.ChatMessage
+import com.mayur.chatbottask.ui.model.User
 import com.mayur.chatbottask.util.StateListener
 import com.stfalcon.chatkit.commons.ImageLoader
 import com.stfalcon.chatkit.commons.models.IMessage
@@ -35,7 +37,7 @@ class ChatActivity : AppCompatActivity(), MessageInput.InputListener,
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_chat)
 
-        viewModel.botResponse.observe(this, {
+        viewModel._botResponse.observe(this, {
             if (it.success == 1) {
                 val botMsg = it.message.message
 

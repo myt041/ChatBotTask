@@ -1,4 +1,4 @@
-package com.mayur.chatbottask.ui.chat
+package com.mayur.chatbottask.data.network.response
 
 import com.google.gson.annotations.SerializedName
 

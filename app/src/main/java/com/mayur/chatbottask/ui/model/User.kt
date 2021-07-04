@@ -1,4 +1,4 @@
-package com.mayur.chatbottask.ui.chat
+package com.mayur.chatbottask.ui.model
 
 import com.stfalcon.chatkit.commons.models.IUser
 

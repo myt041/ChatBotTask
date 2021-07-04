@@ -16,8 +16,8 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.ChatBotTask">
         <activity android:name=".ui.chat.ChatActivity"/>
-        <activity android:name=".ui.chat.HomeActivity"/>
-        <activity android:name=".ui.chat.SplashActivity">
+        <activity android:name=".ui.home.HomeActivity"/>
+        <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -15,4 +15,9 @@ interface MessageDao {
 
     @Query("SELECT * FROM messages WHERE userId=:userId ORDER BY timestamp DESC")
     fun getPreviousMessages(userId: String): List<MessageCache>
+
+    @Query("SELECT * FROM messages WHERE isSynced=:isSynced")
+    fun getUnSyncMessages(isSynced: Boolean): List<MessageCache>
+
+
 }

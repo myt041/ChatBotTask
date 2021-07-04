@@ -1,4 +1,4 @@
-package com.mayur.chatbottask.ui.chat
+package com.mayur.chatbottask.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.mayur.chatbottask.R
-import com.mayur.chatbottask.databinding.ActivityHomeBinding
 import com.mayur.chatbottask.databinding.FragmentHomeContainerBinding
 
 class HomeContainerFragment : Fragment() {

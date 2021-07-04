@@ -1,6 +1,6 @@
 package com.mayur.chatbottask.data.network
 
-import com.mayur.chatbottask.ui.chat.chatBotResponse
+import com.mayur.chatbottask.data.network.response.chatBotResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

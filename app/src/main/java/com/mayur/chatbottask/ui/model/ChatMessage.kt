@@ -1,4 +1,4 @@
-package com.mayur.chatbottask.ui.chat
+package com.mayur.chatbottask.ui.model
 
 import com.stfalcon.chatkit.commons.models.IMessage
 import com.stfalcon.chatkit.commons.models.MessageContentType
@@ -12,9 +12,6 @@ class ChatMessage @JvmOverloads constructor(
     private var objectId: String
 ) : IMessage, MessageContentType.Image, MessageContentType {
 
-    var voice: Voice? = null
-    val status: String
-        get() = "Sent"
     override fun getId(): String {
         return objectId
     }
@@ -34,24 +31,6 @@ class ChatMessage @JvmOverloads constructor(
     override fun getImageUrl(): String? {
         return if (messageType == 0) null else message
     }
-
-
-
-    fun setText(text: String) {
-        this.text = text
-    }
-
-    fun setCreatedAt(createdAt: Date) {
-        this.createdAt = createdAt
-    }
-
-//    fun setImage(image: Image?) {
-//        this.image = image
-//    }
-//
-//    class Image(val url: String)
-
-    class Voice(val url: String, val duration: Int)
 
 
 }

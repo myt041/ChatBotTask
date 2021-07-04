@@ -1,9 +1,10 @@
-package com.mayur.chatbottask.ui.chat
+package com.mayur.chatbottask.ui.splash
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.mayur.chatbottask.R
+import com.mayur.chatbottask.ui.home.HomeActivity
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
